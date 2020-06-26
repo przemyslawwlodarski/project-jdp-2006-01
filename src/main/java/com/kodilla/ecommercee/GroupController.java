@@ -3,7 +3,6 @@ package com.kodilla.ecommercee;
 import com.kodilla.ecommercee.domains.GroupDto;
 import com.kodilla.ecommercee.domains.ProductDto;
 import com.kodilla.ecommercee.errors.GroupNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -11,7 +10,6 @@ import java.util.List;
 
 import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 
-@CrossOrigin("*")
 @RestController
 @RequestMapping("/v1/group")
 public class GroupController {
