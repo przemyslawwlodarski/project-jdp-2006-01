@@ -1,9 +1,6 @@
 package com.kodilla.ecommercee;
 
-import com.kodilla.ecommercee.domains.GroupDto;
-import com.kodilla.ecommercee.domains.ProductDto;
 import com.kodilla.ecommercee.domains.UserDto;
-import com.kodilla.ecommercee.errors.GroupNotFoundException;
 import com.kodilla.ecommercee.errors.UserNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,9 +13,10 @@ import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 @RequestMapping("/v1/user")
 public class UserController {
 
-    /*@Autowired
+    /*@
+    Autowired
     private UserDbService service;
-    @Autowiredgot branch -g
+    @Autowired
     private UserMapper groupMapper;
     */
 
