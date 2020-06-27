@@ -19,6 +19,8 @@ public class Product {
     @Column(name = "quantity")
     private double quantity;
 
+    private Order order;
+
     public Product() {
     }
 
@@ -27,6 +29,10 @@ public class Product {
         this.name = name;
         this.price = price;
         this.quantity = quantity;
+    }
+
+    public Order getOrder() {
+        return order;
     }
 
     public Long getId() {
