@@ -1,8 +1,17 @@
 package com.kodilla.ecommercee.domains;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity(name="products")
 public class Product {
 
@@ -18,30 +27,4 @@ public class Product {
 
     @Column(name = "quantity")
     private double quantity;
-
-    public Product() {
-    }
-
-    public Product(Long id, String name, BigDecimal price, double quantity ){
-        this.id = id;
-        this.name = name;
-        this.price = price;
-        this.quantity = quantity;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public double getQuantity() {
-        return quantity;
-    }
 }
