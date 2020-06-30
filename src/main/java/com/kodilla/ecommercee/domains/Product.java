@@ -17,6 +17,7 @@ public class Product {
 
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)
+    @Column(name = "id", unique = true)
     private Long id;
 
     @Column(name = "name")
@@ -28,3 +29,5 @@ public class Product {
     @Column(name = "quantity")
     private double quantity;
 }
+
+
