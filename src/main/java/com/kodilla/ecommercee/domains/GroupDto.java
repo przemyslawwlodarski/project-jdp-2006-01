@@ -1,27 +1,16 @@
 package com.kodilla.ecommercee.domains;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import java.util.List;
 
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class GroupDto {
     private Long id;
     private String name;
     private List<ProductDto> productDtoList;
-
-    public GroupDto(Long id, String name, List<ProductDto> productDtoList) {
-        this.id = id;
-        this.name = name;
-        this.productDtoList = productDtoList;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public List<ProductDto> getProductDtoList() {
-        return productDtoList;
-    }
 }
