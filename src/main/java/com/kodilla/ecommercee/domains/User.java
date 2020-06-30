@@ -1,6 +1,8 @@
 package com.kodilla.ecommercee.domains;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity(name = "users")
 public class User {
@@ -12,6 +14,14 @@ public class User {
 
     @Column(name = "name")
     private String name;
+
+    @OneToMany(
+            targetEntity = Order.class,
+            mappedBy = "user",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY
+    )
+    private List<Order> orders = new ArrayList<>();
 
     public User() {
     }
@@ -27,5 +37,21 @@ public class User {
 
     public String getName() {
         return name;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 }

@@ -8,6 +8,7 @@ public class Product {
 
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)
+    @Column(name = "id", unique = true)
     private Long id;
 
     @Column(name = "name")
@@ -18,6 +19,10 @@ public class Product {
 
     @Column(name = "quantity")
     private double quantity;
+
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Order order;
 
     public Product() {
     }
@@ -43,5 +48,29 @@ public class Product {
 
     public double getQuantity() {
         return quantity;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public void setQuantity(double quantity) {
+        this.quantity = quantity;
     }
 }
