@@ -30,6 +30,5 @@ public class Product {
     private double quantity;
 
     @ManyToOne
-    @JoinColumn(name = "order_id")
     private Order order;
 }
