@@ -12,8 +12,9 @@ import java.math.BigDecimal;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name="products")
-public class Product {
+@Entity
+@Table(name = "products")
+public final class Product {
 
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)
@@ -28,6 +29,11 @@ public class Product {
 
     @Column(name = "quantity")
     private double quantity;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Group group;
+
 }
 
 

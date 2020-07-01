@@ -1,5 +1,6 @@
 package com.kodilla.ecommercee;
 
+import com.kodilla.ecommercee.domains.GroupDto;
 import com.kodilla.ecommercee.domains.ProductDto;
 import org.springframework.web.bind.annotation.*;
 import java.math.BigDecimal;
@@ -18,7 +19,7 @@ public class ProductController {
 
     @RequestMapping(method = RequestMethod.GET, value = "getProduct")
     public ProductDto getProduct(@RequestParam Long productId)  {
-        return new ProductDto(1L, "a", new BigDecimal(1000), 2);
+        return new ProductDto(1L, "a", new BigDecimal(1000), 2, new GroupDto());
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "createProduct", consumes = APPLICATION_JSON_VALUE)
@@ -27,7 +28,7 @@ public class ProductController {
 
     @RequestMapping(method = RequestMethod.PUT, value = "updateProduct")
     public ProductDto updateProduct(@RequestBody ProductDto productDto) {
-        return new ProductDto(1L,"b", new BigDecimal(2000),2);
+        return new ProductDto(1L,"b", new BigDecimal(2000),2,new GroupDto());
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "deleteProduct")
