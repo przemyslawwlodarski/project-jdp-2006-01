@@ -7,6 +7,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -29,6 +31,6 @@ public class Product {
     @Column(name = "quantity")
     private double quantity;
 
-    @ManyToOne
-    private Order order;
+    @ManyToMany(cascade = CascadeType.ALL,mappedBy = "products")
+    private List<Order> orders = new ArrayList<>();
 }
