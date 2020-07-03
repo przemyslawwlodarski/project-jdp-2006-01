@@ -14,4 +14,5 @@ public class ProductDto {
     private String name;
     private BigDecimal price;
     private double quantity;
+    private GroupDto groupDto;
 }
