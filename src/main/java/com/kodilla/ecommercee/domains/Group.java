@@ -32,5 +32,9 @@ public class Group {
     )
     private List<Product> products = new ArrayList<>();
 
+    public Group(String name){
+        this.name = name;
+    }
+
 }
 
