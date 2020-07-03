@@ -72,4 +72,17 @@ public class GroupDaoTestSuit {
         //CleanUp
         groupDao.deleteById(id);
     }
+    @Test
+    public void testGroupDaoDelete() {
+        //Given
+        Group group = new Group();
+
+        //When
+        groupDao.save(group);
+        groupDao.delete(group);
+
+        //Then
+        Long k = groupDao.count();
+        Assert.assertEquals(0, k, 0.001);
+    }
 }
