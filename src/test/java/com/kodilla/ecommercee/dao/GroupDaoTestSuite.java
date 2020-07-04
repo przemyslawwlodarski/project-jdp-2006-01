@@ -15,7 +15,7 @@ import java.util.Optional;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class GroupDaoTestSuit {
+public class GroupDaoTestSuite {
 
     @Autowired
     private GroupDao groupDao;
@@ -23,7 +23,7 @@ public class GroupDaoTestSuit {
     @Test
     public void testGroupDaoSave() {
         //Given
-        Group group = new Group();
+        Group group = new Group("testName");
 
         //When
         groupDao.save(group);
@@ -31,7 +31,8 @@ public class GroupDaoTestSuit {
         //Then
         Long id = group.getId();
         Optional<Group> readGroup = groupDao.findById(id);
-        Assert.assertTrue(readGroup.isPresent());
+        String name = readGroup.get().getName();
+        Assert.assertEquals("testName", name);
 
         //CleanUp
         groupDao.deleteById(id);
@@ -48,6 +49,8 @@ public class GroupDaoTestSuit {
 
         //Then
         Assert.assertEquals(1, readGroups.size());
+        Assert.assertEquals("testName", readGroups.get(0).getName());
+
 
         //CleanUp
         Long id = group.getId();

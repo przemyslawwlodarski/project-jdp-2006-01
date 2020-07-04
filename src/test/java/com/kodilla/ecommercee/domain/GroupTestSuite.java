@@ -10,10 +10,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class GroupTestSuit {
-
-    @Autowired
-    private Group group;
+public class GroupTestSuite {
 
     @Test
     public void updateName(){
