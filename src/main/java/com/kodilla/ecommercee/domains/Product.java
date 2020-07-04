@@ -7,6 +7,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -17,7 +19,7 @@ import java.math.BigDecimal;
 public final class Product {
 
     @Id
-    @GeneratedValue (strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", unique = true)
     private Long id;
 
@@ -29,6 +31,10 @@ public final class Product {
 
     @Column(name = "quantity")
     private double quantity;
+
+
+    @ManyToMany(cascade = CascadeType.ALL,mappedBy = "products")
+    private List<Order> orders = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "category_id")
