@@ -88,4 +88,19 @@ public class GroupDaoTestSuite {
         Long k = groupDao.count();
         Assert.assertEquals(0, k, 0.001);
     }
+    @Test
+    public void testGroupDaoUpdate() {
+        //Given
+        Group group = new Group("testName");
+
+        //When
+        groupDao.save(group);
+        group.setName("newTestName");
+        groupDao.save(group);
+        List<Group> readGroups = groupDao.findByName("newTestName");
+
+        //Then
+        Assert.assertEquals(1, readGroups.size());
+        Assert.assertEquals("newTestName", readGroups.get(0).getName());
+    }
 }
