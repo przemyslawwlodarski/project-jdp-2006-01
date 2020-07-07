@@ -3,6 +3,8 @@ package com.kodilla.ecommercee;
 import com.kodilla.ecommercee.domains.*;
 import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
+import java.util.List;
+
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
@@ -18,7 +20,7 @@ public class CartController {
         return new CartDto(1L, new ArrayList<>());
     }
     @RequestMapping(method = RequestMethod.POST, value = "addProducts", consumes = APPLICATION_JSON_VALUE)
-    public void addProductsToCart(@RequestBody ProductDto productDto) {
+    public void addProductsToCart(@RequestBody List<ProductDto> productDtos) {
     }
     @RequestMapping(method = RequestMethod.DELETE, value = "deleteProductFromCart")
     public void deleteProductFromCart(@RequestParam Long productDtoId) {
