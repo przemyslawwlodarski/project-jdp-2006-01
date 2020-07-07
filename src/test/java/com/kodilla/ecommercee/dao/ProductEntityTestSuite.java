@@ -10,6 +10,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.Optional;
 
 @Transactional
 @RunWith(SpringRunner.class)
@@ -77,6 +79,6 @@ public class ProductEntityTestSuite {
         long id = product.getId();
         productDao.delete(product);
         //Then
-        Assert.assertEquals(0,productDao.count());
+        Assert.assertEquals(Optional.empty(), productDao.findById(id));
     }
 }
