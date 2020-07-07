@@ -31,6 +31,11 @@ public class User {
             fetch = FetchType.EAGER
     )
     private List<Order> orders = new ArrayList<>();
+
+    public User(String name) {
+        this.name = name;
+    }
 }
+
 
 
