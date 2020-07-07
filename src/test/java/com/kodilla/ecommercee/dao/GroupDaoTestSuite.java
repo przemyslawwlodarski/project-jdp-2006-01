@@ -78,15 +78,15 @@ public class GroupDaoTestSuite {
     @Test
     public void testGroupDaoDelete() {
         //Given
-        Group group = new Group();
+        Group group = new Group("testName");
 
         //When
         groupDao.save(group);
         groupDao.delete(group);
-
         //Then
         Long k = groupDao.count();
-        Assert.assertEquals(0, k, 0.001);
+        List<Group> readGroups = groupDao.findByName("testName");
+        Assert.assertEquals(0, readGroups.size());
     }
     @Test
     public void testGroupDaoUpdate() {
