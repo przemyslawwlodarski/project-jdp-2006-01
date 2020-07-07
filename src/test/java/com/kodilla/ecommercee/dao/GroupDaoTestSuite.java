@@ -8,6 +8,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.Optional;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@Transactional
 public class GroupDaoTestSuite {
 
     @Autowired
@@ -33,9 +35,6 @@ public class GroupDaoTestSuite {
         Optional<Group> readGroup = groupDao.findById(id);
         String name = readGroup.get().getName();
         Assert.assertEquals("testName", name);
-
-        //CleanUp
-        groupDao.deleteById(id);
     }
     @Test
     public void testGroupDaoFindByName() {
@@ -52,11 +51,6 @@ public class GroupDaoTestSuite {
         //Then
         Assert.assertEquals(1, readGroups.size());
         Assert.assertEquals("testName", readGroups.get(0).getName());
-
-
-        //CleanUp
-        Long id = group.getId();
-        groupDao.deleteById(id);
     }
     @Test
     public void testGroupDaoSaveWithProductDetails() {
@@ -73,9 +67,6 @@ public class GroupDaoTestSuite {
 
         //Then
         Assert.assertNotEquals(0, id, 0000.1);
-
-        //CleanUp
-        groupDao.deleteById(id);
     }
     @Test
     public void testGroupDaoDelete() {
