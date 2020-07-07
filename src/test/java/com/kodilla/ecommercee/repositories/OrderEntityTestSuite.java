@@ -13,6 +13,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Transactional
 @SpringBootTest
@@ -109,6 +111,6 @@ public class OrderEntityTestSuite {
         long id = order.getId();
         orderRepository.delete(order);
         //Then
-        Assert.assertEquals(0, orderRepository.count());
+        Assert.assertEquals(Optional.empty(), orderRepository.findById(id));
     }
 }
