@@ -36,6 +36,9 @@ public final class Product {
     @ManyToMany(cascade = CascadeType.ALL,mappedBy = "products")
     private List<Order> orders = new ArrayList<>();
 
+    @ManyToMany(cascade = CascadeType.ALL,mappedBy = "products")
+    private List<Cart> carts = new ArrayList<>();
+
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Group group;
