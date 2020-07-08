@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -31,5 +32,8 @@ public class Group {
             fetch = FetchType.EAGER
     )
     private List<Product> products = new ArrayList<>();
-}
 
+    public Group(String name){
+        this.name=name;
+    }
+}
