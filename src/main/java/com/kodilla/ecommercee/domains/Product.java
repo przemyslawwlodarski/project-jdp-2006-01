@@ -40,6 +40,12 @@ public final class Product {
     @JoinColumn(name = "category_id")
     private Group group;
 
+    public Product(String name, BigDecimal price, double quantity, Group group) {
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
+        this.group = group;
+    }
 }
 
 
