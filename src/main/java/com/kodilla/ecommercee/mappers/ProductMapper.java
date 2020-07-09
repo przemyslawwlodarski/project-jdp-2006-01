@@ -11,13 +11,13 @@ import java.util.stream.Collectors;
 @Component
 public class ProductMapper {
 
-    @Autowired
+    /*@Autowired
     private OrderMapper orderMapper;
     @Autowired
     private CartMapper cartMapper;
     @Autowired
     private GroupMapper groupMapper;
-
+*/
 
     public Product mapToProduct(final ProductDto productDto){
         return new Product(
@@ -25,9 +25,9 @@ public class ProductMapper {
                 productDto.getName(),
                 productDto.getPrice(),
                 productDto.getQuantity(),
-                orderMapper.maptToOrder(productDto.getOrderDto()),
-                cartMapper.mapToCart(productDto.getCartDto()),
-                groupMapper.mapToGroup(productDto.getGroupDto()));
+                null, //orderMapper.mapToOrder(productDto.getOrderDto()),
+                null,  //cartMapper.mapToCart(productDto.getCartDto()),
+                null);  //groupMapper.mapToGroup(productDto.getGroupDto()));
     }
 
     public ProductDto mapToProductDto(final Product product){
@@ -36,9 +36,9 @@ public class ProductMapper {
                 product.getName(),
                 product.getPrice(),
                 product.getQuantity(),
-                orderMapper.mapToOrderDto(product.getOrders()),
-                cartMapper.mapToProductDto(product.getCarts()),
-                groupMapper.mapToGroupDto(product.getGroup()));
+                null, //orderMapper.mapToOrderDto(product.getOrders()),
+                null, //cartMapper.mapToProductDto(product.getCarts()),
+                null); // groupMapper.mapToGroupDto(product.getGroup()));
     }
 
     public List<ProductDto> mapToProductDtoList(final List<Product> productList){
@@ -48,9 +48,9 @@ public class ProductMapper {
                         t.getName(),
                         t.getPrice(),
                         t.getQuantity(),
-                        orderMapper.mapToOrderDto(t.getOrders()),
-                        cartMapper.mapToProductDto(t.getCarts()),
-                        roupMapper.mapToGroupDto(t.getGroup())))
+                        null, //orderMapper.mapToOrderDto(t.getOrders()),
+                        null, //cartMapper.mapToProductDto(t.getCarts()),
+                        null)) //groupMapper.mapToGroupDto(t.getGroup())))
                 .collect(Collectors.toList());
     }
 }
