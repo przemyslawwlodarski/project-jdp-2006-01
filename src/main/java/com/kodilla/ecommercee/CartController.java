@@ -15,18 +15,29 @@ public class CartController {
     public void createCart(@RequestBody CartDto cartDto) {
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "getCart")
-    public CartDto getCart(@RequestBody CartDto cartDto) {
-        return new CartDto(1L, new UserDto(), new ArrayList<>());
+    @RequestMapping(method = RequestMethod.GET, value = "getCarts")
+    public List<CartDto> getCarts() {
+        return new ArrayList<>();
     }
+
+    @RequestMapping(method = RequestMethod.GET, value = "getCart")
+    public CartDto getCart(@RequestParam Long cartId) {
+        return new CartDto(1L, new UserDto(1L, "Kowalski"), new ArrayList<>());
+    }
+
     @RequestMapping(method = RequestMethod.POST, value = "addProducts", consumes = APPLICATION_JSON_VALUE)
     public void addProductsToCart(@RequestBody List<ProductDto> productDtos) {
     }
+
     @RequestMapping(method = RequestMethod.DELETE, value = "deleteProductFromCart")
     public void deleteProductFromCart(@RequestParam Long productDtoId) {
     }
+
+    @RequestMapping(method = RequestMethod.DELETE, value = "deleteCart")
+    public void deleteCart(@RequestParam Long cartId) {
+    }
+
     @RequestMapping(method = RequestMethod.POST, value = "createOrder")
     public void createOrder(@RequestParam Long cartDtoId) {
     }
-
 }
