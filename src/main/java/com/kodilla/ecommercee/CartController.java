@@ -30,7 +30,7 @@ public class CartController {
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "deleteProductFromCart")
-    public void deleteProductFromCart(@RequestParam Long productDtoId) {
+    public void deleteProductFromCart(@RequestParam Long productDtoId, Long cartDtoId) {
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "deleteCart")
