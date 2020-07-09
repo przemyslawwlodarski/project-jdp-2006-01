@@ -32,6 +32,11 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    public Order(User user, List<Product> products) {
+        this.user = user;
+        this.products = products;
+    }
 }
 
 
