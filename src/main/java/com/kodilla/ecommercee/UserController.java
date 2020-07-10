@@ -2,9 +2,11 @@ package com.kodilla.ecommercee;
 
 import com.kodilla.ecommercee.domains.UserDto;
 import com.kodilla.ecommercee.errors.UserNotFoundException;
+import com.kodilla.ecommercee.mappers.UserMapper;
+import com.kodilla.ecommercee.service.UserDbService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
@@ -13,37 +15,33 @@ import static org.springframework.util.MimeTypeUtils.APPLICATION_JSON_VALUE;
 @RequestMapping("/v1/user")
 public class UserController {
 
-    /*@
-    Autowired
-    private UserDbService service;
     @Autowired
-    private UserMapper groupMapper;
-    */
+    private UserDbService userService;
+    @Autowired
+    private UserMapper userMapper;
+
 
     @RequestMapping(method = RequestMethod.GET, value = "getUsers")
     public List<UserDto> getGroups() {
-        return new ArrayList<>();
-        //return userMapper.mapToUserDtoList(service.getAllUsers());
+        return userMapper.mapToUserDtoList(userService.getAllUsers());
     }
     @RequestMapping(method = RequestMethod.GET, value = "getUser")
     public UserDto getUser(@RequestParam Long userId) throws UserNotFoundException {
-        return new UserDto(1L, "User 1");
-        //return userMapper.mapToUserDto(service.getUser(userId).orElseThrow(UserNotFoundException::new));
+        return userMapper.mapToUserDto(userService.getUser(userId).orElseThrow(UserNotFoundException::new));
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "deleteUser")
-    public void deleteUser(@RequestParam Long userId) {
-        //service.deleteById(userId);
+    public void deleteUser(@RequestParam Long userId) throws UserNotFoundException {
+        userService.deleteById(userId);
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "updateUser")
-    public UserDto updateUser(@RequestBody UserDto userDto) {
-        return new UserDto(1L,"User 2");
-        //return userMapper.mapToUserDto(service.saveUser(userMapper.mapToUser(userDto)));
+    public UserDto updateUser(@RequestBody UserDto userDto) throws UserNotFoundException {
+        return userMapper.mapToUserDto(userService.saveUser(userMapper.mapToUser(userDto)));
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "createUser", consumes = APPLICATION_JSON_VALUE)
     public void createUser(@RequestBody UserDto userDto) {
-        //service.saveUser(userMapper.mapToUser(userDto));
+        userService.saveUser(userMapper.mapToUser(userDto));
     }
 }
