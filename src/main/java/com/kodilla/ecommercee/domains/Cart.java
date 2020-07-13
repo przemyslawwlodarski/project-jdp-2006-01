@@ -31,4 +31,9 @@ public class Cart {
             inverseJoinColumns = {@JoinColumn(name = "product_id", referencedColumnName = "id")}
     )
     private List<Product> products;
+
+    public Cart(User user, List<Product> products) {
+        this.user = user;
+        this.products = products;
+    }
 }
