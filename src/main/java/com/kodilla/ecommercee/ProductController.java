@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
+
+
 @RestController
 @RequestMapping("/v1/product")
 public class ProductController {
@@ -21,7 +23,6 @@ public class ProductController {
     private ProductDbService service;
     @Autowired
     private ProductMapper productMapper;
-
 
     @RequestMapping(method = RequestMethod.GET, value = "getProducts")
     public List<ProductDto> getProducts() {
@@ -45,6 +46,11 @@ public class ProductController {
 
     @RequestMapping(method = RequestMethod.DELETE, value = "deleteProduct")
     public void deleteProduct(@RequestParam Long productId) {
-        service.deleteById(productId);
+        try{
+            service.deleteById(productId);
+        }
+        catch (ProductNotFoundException e){
+            throw new ProductNotFoundException();
+        }
     }
 }
