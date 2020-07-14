@@ -20,6 +20,9 @@ public class CartEntityTestSuite {
     @Autowired
     CartRepository cartRepository;
 
+    @Autowired
+    UserRepository userRepository;
+
     @Test
     public void testSaveCart() {
         //Given
@@ -80,13 +83,13 @@ public class CartEntityTestSuite {
         products2.add(product3);
         products2.add(product4);
         //When
+        userRepository.save(user1);
         cartRepository.save(cart);
         long id = cart.getId();
-        System.out.println("Old user is: " + cart.getUser());
         cart.setUser(user2);
         cart.setProducts(products2);
+        userRepository.save(user2);
         cartRepository.save(cart);
-        System.out.println("New user is: " + cart.getUser());
         //Then
         Assert.assertEquals(user2, cart.getUser());
         Assert.assertEquals(products2, cart.getProducts());
