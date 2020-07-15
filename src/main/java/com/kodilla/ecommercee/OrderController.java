@@ -18,7 +18,7 @@ public class OrderController {
 
     @RequestMapping(method = RequestMethod.GET, value = "getOrder")
     public OrderDto getOrder(@RequestParam Long orderId)  {
-        return new OrderDto(1L, new ArrayList<>(),  new UserDto(1L, "Kowalski"));
+        return new OrderDto(1L, new ArrayList<>(), new UserDto(1L, "Kowalski", new ArrayList<>()));
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "createOrder", consumes = APPLICATION_JSON_VALUE)
@@ -27,7 +27,7 @@ public class OrderController {
 
     @RequestMapping(method = RequestMethod.PUT, value = "updateOrder")
     public OrderDto updateOrder(@RequestBody OrderDto orderDto) {
-        return new OrderDto(1L, new ArrayList<>(), new UserDto(1L, "Nowak"));
+        return new OrderDto(1L, new ArrayList<>(), new UserDto(1L, "Nowak", new ArrayList<>()));
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "deleteOrder")

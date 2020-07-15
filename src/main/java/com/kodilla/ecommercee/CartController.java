@@ -22,7 +22,7 @@ public class CartController {
 
     @RequestMapping(method = RequestMethod.GET, value = "getCart")
     public CartDto getCart(@RequestParam Long cartId) {
-        return new CartDto(1L, new UserDto(1L, "Kowalski"), new ArrayList<>());
+        return new CartDto(1L, new UserDto(1L, "Kowalski", new ArrayList<>()), new ArrayList<>());
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "addProducts", consumes = APPLICATION_JSON_VALUE)
