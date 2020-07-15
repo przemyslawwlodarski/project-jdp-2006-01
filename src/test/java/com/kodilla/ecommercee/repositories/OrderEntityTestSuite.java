@@ -24,6 +24,9 @@ public class OrderEntityTestSuite {
     @Autowired
     OrderRepository orderRepository;
 
+    @Autowired
+    UserRepository userRepository;
+
     @Test
     public void testSaveOrder() {
         //Given
@@ -85,9 +88,11 @@ public class OrderEntityTestSuite {
         products2.add(product4);
         //When
         orderRepository.save(order);
+        userRepository.save(user1);
         long id = order.getId();
         order.setUser(user2);
         order.setProducts(products2);
+        userRepository.save(user2);
         orderRepository.save(order);
         //Then
         Assert.assertEquals(user2, order.getUser());
