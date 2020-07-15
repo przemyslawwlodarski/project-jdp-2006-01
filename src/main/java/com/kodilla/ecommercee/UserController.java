@@ -40,7 +40,7 @@ public class UserController {
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "updateUser")
-    public UserDto updateUser(@RequestBody UserDto userDto) throws UserNotFoundException {
+    public UserDto updateUser(@RequestBody UserDto userDto) {
         return userMapper.mapToUserDto(userService.saveUser(userMapper.mapToUser(userDto)));
     }
 
@@ -48,11 +48,4 @@ public class UserController {
     public void createUser(@RequestBody UserDto userDto) {
         userService.saveUser(userMapper.mapToUser(userDto));
     }
-
 }
-
-
-
-
-
-
