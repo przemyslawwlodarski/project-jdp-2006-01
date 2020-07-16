@@ -12,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 public class OrderDto {
     private Long id;
-    private List<ProductDto> products;
+    private List<ProductDto> productDtos;
     private UserDto userDto;
 }
 
