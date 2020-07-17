@@ -49,7 +49,7 @@ public class CartController {
         return cartMapper.mapToCartDto(service.getCart(cartId).orElseThrow(()-> new CartNotFoundException("Cart not found "+ cartId)));
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "getCart")
+    @RequestMapping(method = RequestMethod.GET, value = "getProductFromCart")
     public List<Product> getProductFromCart(@RequestParam Long cartDtoId) throws CartNotFoundException {
         return service.getCart(cartDtoId).orElseThrow(()-> new CartNotFoundException("Cart not found "+ cartDtoId)).getProducts();
     }
@@ -63,12 +63,20 @@ public class CartController {
         service.getCart(cartDtoId).orElseThrow(()-> new CartNotFoundException("Cart not found "+ cartDtoId)).setProducts(currentProducts);
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "deleteProductFromCart")
+    @RequestMapping(method = RequestMethod.POST, value = "addProduct", consumes = APPLICATION_JSON_VALUE)
+    public void addProductToCart(@RequestBody Long cartDtoId, Long productDtoId) throws CartNotFoundException, ProductNotFoundException {
+        getProductFromCart(cartDtoId);
+        currentProducts.add(productService.getProduct(productDtoId).orElseThrow(()-> new ProductNotFoundException("Product not found " + productDtoId )));
+        service.getCart(cartDtoId).orElseThrow(()-> new CartNotFoundException("Cart not found "+ cartDtoId)).setProducts(currentProducts);
+    }
+
+
+    @RequestMapping(method = RequestMethod.DELETE, value = "deleteProduct")
     public void deleteProductFromCart(@RequestParam Long cartDtoId, Long productDtoId) throws CartNotFoundException, ProductNotFoundException{
         getProductFromCart(cartDtoId);
         currentProducts.remove(productService.getProduct(productDtoId).orElseThrow(()-> new ProductNotFoundException("Product not found " + productDtoId )));
     }
-    @RequestMapping(method = RequestMethod.DELETE, value = "deleteProductFromCart")
+    @RequestMapping(method = RequestMethod.DELETE, value = "deleteProducts")
     public void deleteProductsFromCart(@RequestParam Long cartDtoId, List<ProductDto> products) throws CartNotFoundException{
         getProductFromCart(cartDtoId);
         for (ProductDto product : products) {
