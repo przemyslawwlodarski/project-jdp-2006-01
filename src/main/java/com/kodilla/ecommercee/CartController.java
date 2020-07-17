@@ -51,29 +51,28 @@ public class CartController {
 
     @RequestMapping(method = RequestMethod.GET, value = "getCart")
     public List<Product> getProductFromCart(@RequestParam Long cartDtoId) throws CartNotFoundException {
-        List<Product> currentProducts = service.getCart(cartDtoId).orElseThrow(()-> new CartNotFoundException("Cart not found "+ cartDtoId)).getProducts();
-        return currentProducts;
+        return service.getCart(cartDtoId).orElseThrow(()-> new CartNotFoundException("Cart not found "+ cartDtoId)).getProducts();
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "addProducts", consumes = APPLICATION_JSON_VALUE)
     public void addProductsToCart(@RequestBody Long cartDtoId, List<ProductDto> products) throws CartNotFoundException {
         getProductFromCart(cartDtoId);
-        for (int i=0; i<products.size(); i++){
-            currentProducts.add(productMapper.mapToProduct(products.get(i)));
+        for (ProductDto product : products) {
+            currentProducts.add(productMapper.mapToProduct(product));
         }
         service.getCart(cartDtoId).orElseThrow(()-> new CartNotFoundException("Cart not found "+ cartDtoId)).setProducts(currentProducts);
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "deleteProductFromCart")
-    public void deleteProductFromCart(@RequestParam Long cartDtoId, Long productDtoId) throws CartNotFoundException{
+    public void deleteProductFromCart(@RequestParam Long cartDtoId, Long productDtoId) throws CartNotFoundException, ProductNotFoundException{
         getProductFromCart(cartDtoId);
-        currentProducts.remove(productService.getProduct(productDtoId).orElse(null));
+        currentProducts.remove(productService.getProduct(productDtoId).orElseThrow(()-> new ProductNotFoundException("Product not found " + productDtoId )));
     }
     @RequestMapping(method = RequestMethod.DELETE, value = "deleteProductFromCart")
     public void deleteProductsFromCart(@RequestParam Long cartDtoId, List<ProductDto> products) throws CartNotFoundException{
         getProductFromCart(cartDtoId);
-        for (int i=0; i<products.size(); i++){
-            currentProducts.remove(productMapper.mapToProduct(products.get(i)));
+        for (ProductDto product : products) {
+            currentProducts.remove(productMapper.mapToProduct(product));
         }
     }
 
