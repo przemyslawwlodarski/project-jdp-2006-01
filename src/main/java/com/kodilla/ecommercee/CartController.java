@@ -69,6 +69,13 @@ public class CartController {
         getProductFromCart(cartDtoId);
         currentProducts.remove(productService.getProduct(productDtoId).orElse(null));
     }
+    @RequestMapping(method = RequestMethod.DELETE, value = "deleteProductFromCart")
+    public void deleteProductsFromCart(@RequestParam Long cartDtoId, List<ProductDto> products) throws CartNotFoundException{
+        getProductFromCart(cartDtoId);
+        for (int i=0; i<products.size(); i++){
+            currentProducts.remove(productMapper.mapToProduct(products.get(i)));
+        }
+    }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "deleteCart")
     public void deleteCart(@RequestParam Long cartId) {
