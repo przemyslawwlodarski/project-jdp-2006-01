@@ -1,7 +1,8 @@
-package com.kodilla.ecommercee.dao;
+package com.kodilla.ecommercee.repositories;
 
 import com.kodilla.ecommercee.domains.Group;
 import com.kodilla.ecommercee.domains.Product;
+import com.kodilla.ecommercee.repositories.GroupRepository;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,10 +18,10 @@ import java.util.Optional;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Transactional
-public class GroupDaoTestSuite {
+public class GroupEntityTestSuite {
 
     @Autowired
-    private GroupDao groupDao;
+    private GroupRepository groupRepository;
 
     @Test
     public void testGroupDaoSave() {
@@ -28,11 +29,11 @@ public class GroupDaoTestSuite {
         Group group = new Group("testName");
 
         //When
-        groupDao.save(group);
+        groupRepository.save(group);
 
         //Then
         Long id = group.getId();
-        Optional<Group> readGroup = groupDao.findById(id);
+        Optional<Group> readGroup = groupRepository.findById(id);
         String name = readGroup.get().getName();
         Assert.assertEquals("testName", name);
     }
@@ -41,12 +42,12 @@ public class GroupDaoTestSuite {
         //Given
         Group group = new Group("testName");
         Group group2 = new Group("testName2");
-        groupDao.save(group);
-        groupDao.save(group2);
+        groupRepository.save(group);
+        groupRepository.save(group2);
         String name = group.getName();
 
         //When
-        List<Group> readGroups = groupDao.findByName(name);
+        List<Group> readGroups = groupRepository.findByName(name);
 
         //Then
         Assert.assertEquals(1, readGroups.size());
@@ -62,7 +63,7 @@ public class GroupDaoTestSuite {
         group.setProducts(productsList);
 
         //When
-        groupDao.save(group);
+        groupRepository.save(group);
         Long id = group.getId();
 
         //Then
@@ -74,11 +75,11 @@ public class GroupDaoTestSuite {
         Group group = new Group("testName");
 
         //When
-        groupDao.save(group);
-        groupDao.delete(group);
+        groupRepository.save(group);
+        groupRepository.delete(group);
         //Then
-        Long k = groupDao.count();
-        List<Group> readGroups = groupDao.findByName("testName");
+        Long k = groupRepository.count();
+        List<Group> readGroups = groupRepository.findByName("testName");
         Assert.assertEquals(0, readGroups.size());
     }
     @Test
@@ -87,10 +88,10 @@ public class GroupDaoTestSuite {
         Group group = new Group("testName");
 
         //When
-        groupDao.save(group);
+        groupRepository.save(group);
         group.setName("newTestName");
-        groupDao.save(group);
-        List<Group> readGroups = groupDao.findByName("newTestName");
+        groupRepository.save(group);
+        List<Group> readGroups = groupRepository.findByName("newTestName");
 
         //Then
         Assert.assertEquals(1, readGroups.size());

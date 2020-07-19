@@ -1,4 +1,4 @@
-package com.kodilla.ecommercee.dao;
+package com.kodilla.ecommercee.repositories;
 
 import com.kodilla.ecommercee.domains.Group;
 import com.kodilla.ecommercee.domains.Product;
@@ -10,7 +10,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.Optional;
 
 @Transactional
@@ -19,7 +18,7 @@ import java.util.Optional;
 public class ProductEntityTestSuite {
 
     @Autowired
-    ProductDao productDao;
+    ProductRepository productRepository;
 
     @Test
     public void testSaveProduct() {
@@ -27,7 +26,7 @@ public class ProductEntityTestSuite {
         Group group = new Group("group");
         Product product = new Product("bike", new BigDecimal(100), 5 , group);
         //When
-        productDao.save(product);
+        productRepository.save(product);
         long id = product.getId();
         //Then
         Assert.assertEquals("bike", product.getName());
@@ -41,7 +40,7 @@ public class ProductEntityTestSuite {
         Group group = new Group("group");
         Product product = new Product("bike", new BigDecimal(100), 5 , group);
         //When
-        productDao.save(product);
+        productRepository.save(product);
         long id = product.getId();
         //Then
         Assert.assertEquals("bike", product.getName());
@@ -56,13 +55,13 @@ public class ProductEntityTestSuite {
         Product product = new Product("bike", new BigDecimal(100), 5 , group);
         Group updatedGroup = new Group("updatedGroup");
         //When
-        productDao.save(product);
+        productRepository.save(product);
         long id = product.getId();
         product.setName("car");
         product.setPrice(new BigDecimal(200));
         product.setQuantity(10);
         product.setGroup(updatedGroup);
-        productDao.save(product);
+        productRepository.save(product);
         //Then
         Assert.assertEquals("car", product.getName());
         Assert.assertEquals(new BigDecimal(200), product.getPrice());
@@ -75,10 +74,10 @@ public class ProductEntityTestSuite {
         Group group = new Group("group");
         Product product = new Product("bike", new BigDecimal(100), 5 , group);
         //When
-        productDao.save(product);
+        productRepository.save(product);
         long id = product.getId();
-        productDao.delete(product);
+        productRepository.delete(product);
         //Then
-        Assert.assertEquals(Optional.empty(), productDao.findById(id));
+        Assert.assertEquals(Optional.empty(), productRepository.findById(id));
     }
 }
