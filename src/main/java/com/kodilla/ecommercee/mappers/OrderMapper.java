@@ -20,15 +20,15 @@ public class OrderMapper {
     public Order mapToOrder(final OrderDto orderDto) {
         return new Order(
                 orderDto.getId(),
-                null, //productMapper.mapToProduct(orderDto.getProductDtos(),
-                null);   //userMapper.mapToUser(orderDto.getUserDto()));
+                productMapper.mapToProductList(orderDto.getProductDtos()),
+                userMapper.mapToUser(orderDto.getUserDto()));
     }
 
     public OrderDto mapToOrderDto(final Order order) {
         return new OrderDto(
                 order.getId(),
-                null,  //productMapper.mapToProductDto(order.getProducts(),
-                null);   //userMapper.mapToUserDto(order.getUser()));
+                productMapper.mapToProductDtoList(order.getProducts()),
+                userMapper.mapToUserDto(order.getUser()));
 
     }
 
@@ -36,8 +36,8 @@ public class OrderMapper {
         return orderList.stream()
                 .map(t -> new OrderDto(
                         t.getId(),
-                        null,  //productMapper.mapToProductDto(t.getProducts()),
-                        null))    //userMapper.mapToUserDto(t.getUser())))
+                        productMapper.mapToProductDtoList(t.getProducts()),
+                        userMapper.mapToUserDto(t.getUser())))
                 .collect(Collectors.toList());
     }
 }
