@@ -53,4 +53,16 @@ public class ProductMapper {
                         null)) //groupMapper.mapToGroupDto(t.getGroup())))
                 .collect(Collectors.toList());
     }
+    public List<Product> mapToProductList(final List<ProductDto> productDtoList){
+        return productDtoList.stream()
+                .map(t -> new Product(
+                        t.getId(),
+                        t.getName(),
+                        t.getPrice(),
+                        t.getQuantity(),
+                        null,
+                        null,
+                        null))
+                .collect(Collectors.toList());
+    }
 }
