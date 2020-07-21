@@ -13,6 +13,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -56,36 +57,26 @@ public class CartController {
 
     @RequestMapping(method = RequestMethod.POST, value = "addProducts", consumes = APPLICATION_JSON_VALUE)
     public void addProductsToCart(@RequestParam Long cartDtoId, @RequestBody List<ProductDto> products) throws CartNotFoundException {
-        List<ProductDto> currentProducts = cartMapper.mapToCartDto(service.getCart(cartDtoId).
-                orElseThrow(()-> new CartNotFoundException("Cart not found "+ cartDtoId))).getProducts();
-        currentProducts.addAll(products);
-        cartMapper.mapToCartDto(service.getCart(cartDtoId).
-                orElseThrow(()-> new CartNotFoundException("Cart not found "+ cartDtoId))).setProducts(currentProducts);
+        Cart cart = service.getCart(cartDtoId).orElseThrow(()-> new CartNotFoundException("Cart not found "+ cartDtoId));
+        cart.getProducts().addAll(productMapper.mapToProductList(products));
+        service.saveCart(cart);
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "addProduct", consumes = APPLICATION_JSON_VALUE)
-    public void addProductToCart(@RequestParam Long cartDtoId, @RequestParam Long productDtoId) throws CartNotFoundException, ProductNotFoundException {
-        List<ProductDto> currentProducts = cartMapper.mapToCartDto(service.getCart(cartDtoId).
-                orElseThrow(()-> new CartNotFoundException("Cart not found "+ cartDtoId))).getProducts();
-        currentProducts.add(productMapper.mapToProductDto(productService.getProduct(productDtoId).
-                orElseThrow(()-> new ProductNotFoundException("Product not found "+ productDtoId))));
+    public void addProductToCart(@RequestParam Long cartDtoId, @RequestBody ProductDto productDto) throws CartNotFoundException, ProductNotFoundException {
+        addProductsToCart(cartDtoId, Collections.singletonList(productDto));
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "deleteProduct")
-    public void deleteProductFromCart(@RequestParam Long cartDtoId, @RequestParam Long productDtoId) throws CartNotFoundException, ProductNotFoundException{
-        List<ProductDto> currentProducts = cartMapper.mapToCartDto(service.getCart(cartDtoId).
-                orElseThrow(()-> new CartNotFoundException("Cart not found "+ cartDtoId))).getProducts();
-        currentProducts.remove(productMapper.mapToProductDto(productService.getProduct(productDtoId).
-                orElseThrow(()-> new ProductNotFoundException("Product not found "+ productDtoId))));
+    public void deleteProductFromCart(@RequestParam Long cartDtoId, @RequestBody ProductDto productDto) throws CartNotFoundException, ProductNotFoundException{
+        deleteProductsFromCart(cartDtoId, Collections.singletonList(productDto));
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "deleteProducts")
     public void deleteProductsFromCart(@RequestParam Long cartDtoId, @RequestBody List<ProductDto> products) throws CartNotFoundException{
-        List<ProductDto> currentProducts = cartMapper.mapToCartDto(service.getCart(cartDtoId).
-                orElseThrow(()-> new CartNotFoundException("Cart not found "+ cartDtoId))).getProducts();
-        currentProducts.removeAll(products);
-        cartMapper.mapToCartDto(service.getCart(cartDtoId).
-                orElseThrow(()-> new CartNotFoundException("Cart not found "+ cartDtoId))).setProducts(currentProducts);
+        Cart cart = service.getCart(cartDtoId).orElseThrow(()-> new CartNotFoundException("Cart not found "+ cartDtoId));
+        cart.getProducts().removeAll(productMapper.mapToProductList(products));
+        service.saveCart(cart);
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "deleteCart")
