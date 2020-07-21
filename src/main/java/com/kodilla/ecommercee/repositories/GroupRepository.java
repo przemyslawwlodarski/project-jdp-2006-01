@@ -22,4 +22,6 @@ public interface GroupRepository extends CrudRepository<Group, Long> {
 
     @Override
     long count();
+
+    List<Group> findByName(String name);
 }
