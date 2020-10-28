@@ -12,11 +12,11 @@ the entire code was made by two people - me and my teammate - Kamil Kowalczyk
 	
 ## Technologies
 Project is created with:
-Java 8
-Spring
-Hibernate
-REST API
-Workflow: Kanban
+* Java 8
+* Spring
+* Hibernate
+* REST API
+* Workflow: Kanban
 	
 ## Setup
 To run this project, go to:
